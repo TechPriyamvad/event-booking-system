@@ -46,3 +46,15 @@ group :development do
 end
 
 gem 'dotenv-rails', groups: [:development, :test]
+
+# Authentication
+gem 'devise'
+
+# Background jobs
+gem 'sidekiq'
+
+# JSON serialization
+gem 'active_model_serializers'
+
+# Authorization
+gem 'cancancan' # or 'pundit'
