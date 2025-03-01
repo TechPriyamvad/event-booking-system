@@ -22,3 +22,10 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+- postgresql creds
+  user: postgres
+  pass: rider@1234
+  user: event_booking_user
+  pass: event@1234
+  
