@@ -11,16 +11,18 @@
 
 # Create an event organizer
 event_organizer = EventOrganizer.create!(
-  name: "Organizer 1",
-  email: "organizer1@example.com",
-  password: "password"
+  name: "Organizer 3",
+  email: "organizer3@example.com",
+  password: "password123",
+  password_confirmation: "password123"
 )
 
 # Create a customer
 customer = Customer.create!(
-  name: "Customer 1",
-  email: "customer1@example.com",
-  password: "password"
+  name: "Customer 3",
+  email: "customer2@example.com",
+  password: "password123",
+  password_confirmation: "password123"
 )
 
 # Create an event
