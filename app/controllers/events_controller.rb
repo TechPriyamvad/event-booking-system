@@ -1,5 +1,6 @@
 # filepath: app/controllers/events_controller.rb
 class EventsController < ApplicationController
+    before_action :authenticate_event_organizer!, except: [:index, :show]
     before_action :set_event, only: [:show, :update, :destroy]
   
     # GET /events
@@ -15,7 +16,7 @@ class EventsController < ApplicationController
   
     # POST /events
     def create
-      @event = Event.new(event_params)
+      @event = current_event_organizer.events.new(event_params)
       if @event.save
         render json: @event, status: :created, location: @event
       else
