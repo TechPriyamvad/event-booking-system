@@ -29,5 +29,13 @@ module EventBooking
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
     config.active_job.queue_adapter = :sidekiq
+
+    # Add middleware for sessions to work with Devise
+    # config.middleware.use ActionDispatch::Cookies
+    # config.middleware.use ActionDispatch::Session::CookieStore
+    # config.middleware.insert_after ActionDispatch::Session::CookieStore, Rack::MethodOverride
+
+    # # Configure session store for API-only app
+    # config.session_store :cookie_store, key: '_event_booking_session'
   end
 end

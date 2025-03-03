@@ -58,3 +58,6 @@ gem 'active_model_serializers'
 
 # Authorization
 gem 'cancancan' # or 'pundit'
+
+# jwt token based authentication
+gem 'devise-jwt'
