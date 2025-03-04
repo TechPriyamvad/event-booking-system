@@ -37,5 +37,6 @@ module EventBooking
 
     # # Configure session store for API-only app
     # config.session_store :cookie_store, key: '_event_booking_session'
+    config.autoload_paths << Rails.root.join('app', 'lib')
   end
 end

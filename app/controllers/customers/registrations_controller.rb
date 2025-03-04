@@ -3,29 +3,45 @@ class Customers::RegistrationsController < Devise::RegistrationsController
     
     def create
       build_resource(sign_up_params)
-      
       resource.save
       
       if resource.persisted?
-        # Generate JWT token directly without using sessions
-        token = nil
         if resource.active_for_authentication?
-          # Generate the JWT token manually, avoiding Devise's session-based process
-          payload = { sub: resource.id, scp: 'customer' }
-          token = JWT.encode(payload, Rails.application.credentials.devise_jwt_secret_key, 'HS256')
+          # Don't call sign_up which tries to use sessions
+          # sign_up(resource_name, resource)
+          
+        #   # Generate JWT token manually using warden-jwt_auth
+        #   payload = { 
+        #     sub: resource.id,
+        #     scp: 'customer',
+        #     aud: nil, 
+        #     iat: Time.now.to_i,
+        #     exp: 1.day.from_now.to_i,
+        #     jti: SecureRandom.uuid
+        #   }
+          
+        #   token = JWT.encode(
+        #     payload, 
+        #     Rails.application.credentials.devise_jwt_secret_key, 
+        #     'HS256'
+        #   )
+          
+          render json: {
+            status: { code: 200, message: 'Signed up successfully.' },
+            data: resource,
+          }
+        else
+          # Handle inactive account
+          render json: {
+            status: { code: 401, message: 'Account not active' },
+            data: resource
+          }, status: :unauthorized
         end
-        
-        render json: {
-          status: { code: 200, message: 'Signed up successfully.' },
-          data: resource,
-          token: token
-        }
       else
         render json: {
-          status: { message: "User couldn't be created successfully. #{resource.errors.full_messages.to_sentence}" }
+          status: { code: 422, message: resource.errors.full_messages.join(', ') },
+          data: resource.errors
         }, status: :unprocessable_entity
-        clean_up_passwords resource
-        set_minimum_password_length
       end
     end
   

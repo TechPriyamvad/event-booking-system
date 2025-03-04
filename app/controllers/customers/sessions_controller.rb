@@ -1,19 +1,18 @@
 class Customers::SessionsController < Devise::SessionsController
   respond_to :json
 
-  private
-
-  def respond_with(resource, _opts = {})
-    if resource.persisted?
-      render json: { 
-        message: 'Logged in successfully.',
-        customer: resource,
-        token: request.env['warden-jwt_auth.token']
-      }, status: :ok
-    else
-      render json: { message: 'Invalid credentials' }, status: :unauthorized
-    end
+  def create
+    self.resource = warden.authenticate!(auth_options)
+    token = request.env['warden-jwt_auth.token']
+    
+    render json: {
+      status: { code: 200, message: 'Signed in successfully.' },
+      data: resource,
+      token: token
+    }
   end
+
+  private
 
   def respond_to_on_destroy
     head :no_content

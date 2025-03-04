@@ -1,6 +1,7 @@
 # filepath: app/controllers/bookings_controller.rb
 class BookingsController < ApplicationController
     before_action :authenticate_customer!
+    before_action :authorize_customer!
     before_action :set_event
     before_action :set_booking, only: [:show, :destroy]
   
@@ -17,8 +18,8 @@ class BookingsController < ApplicationController
   
     # POST /events/:event_id/bookings
     def create
-      @booking = @event.bookings.new(booking_params)
-      @booking.customer = current_customer
+      @booking = current_customer.bookings.build(booking_params)
+      @booking.event = @event  # This line is crucial
   
       if @booking.save
         render json: @booking, status: :created, location: [@event, @booking]

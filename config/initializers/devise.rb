@@ -320,6 +320,15 @@ Devise.setup do |config|
     jwt.revocation_requests = [
       ['DELETE', %r{^/customers/sign_out$}]
     ]
-    jwt.expiration_time = 1.day.to_i
+    # set jwt expiration time to 1 hour
+    jwt.expiration_time = 1.hour.to_i
+  end
+
+  # Custom authentication failure response for API
+  config.warden do |manager|
+    manager.failure_app = CustomDeviseFailureApp
+
+    # Configure navigational formats
+  config.navigational_formats = [] # This prevents HTML redirects
   end
 end
