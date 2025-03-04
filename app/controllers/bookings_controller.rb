@@ -22,6 +22,8 @@ class BookingsController < ApplicationController
       @booking.event = @event  # This line is crucial
   
       if @booking.save
+        # Enqueue the background job to send confirmation email
+        BookingConfirmationWorker.perform_async(@booking.id)
         render json: @booking, status: :created, location: [@event, @booking]
       else
         Rails.logger.info @booking.errors.full_messages

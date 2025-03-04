@@ -1,0 +1,29 @@
+<!-- filepath: app/views/booking_mailer/booking_confirmation.html.erb -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+  <h1>Booking Confirmation</h1>
+  <p>
+    Hello <%= @customer.name || @customer.email %>,
+  </p>
+  <p>
+    Your booking for <strong><%= @event.title %></strong> has been confirmed!
+  </p>
+  
+  <h2>Booking Details:</h2>
+  <ul>
+    <li><strong>Event:</strong> <%= @event.title %></li>
+    <li><strong>Date:</strong> <%= @event.date.strftime('%B %d, %Y at %I:%M %p') %></li>
+    <li><strong>Venue:</strong> <%= @event.venue %></li>
+    <li><strong>Ticket Type:</strong> <%= @ticket.ticket_type %></li>
+    <li><strong>Quantity:</strong> <%= @booking.quantity %></li>
+    <li><strong>Price per Ticket:</strong> $<%= @ticket.price %></li>
+    <li><strong>Total:</strong> $<%= @booking.quantity * @ticket.price %></li>
+  </ul>
+  
+  <p>Thank you for your booking!</p>
+</body>
+</html>

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     sessions: 'customers/sessions',
     registrations: 'customers/registrations'
   },defaults: { format: :json }
-  
+
   devise_for :event_organizers, controllers: {
     sessions: 'event_organizers/sessions',
     registrations: 'event_organizers/registrations'
@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   resources :events, only: [:index, :show, :create, :update, :destroy]
   resources :events, only: [] do
+    resources :tickets
     resources :bookings, only: [:create, :index, :show, :destroy]
   end
 

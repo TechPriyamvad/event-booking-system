@@ -52,6 +52,7 @@ gem 'devise'
 
 # Background jobs
 gem 'sidekiq'
+# gem 'sidekiq', '~> 6.5.0'
 
 # JSON serialization
 gem 'active_model_serializers'
