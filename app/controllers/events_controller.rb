@@ -40,6 +40,7 @@ class EventsController < ApplicationController
     # DELETE /events/:id
     def destroy
       @event.destroy
+      render json: { message: "Event successfully deleted" }, status: :ok
     end
   
     private
