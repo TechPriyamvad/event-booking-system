@@ -1,0 +1,21 @@
+<!-- filepath: app/views/event_mailer/event_updated_notification.text.erb -->
+Event Update Notification
+
+Hello <%= @customer.name || @customer.email %>,
+
+We're writing to inform you that an event you've booked tickets for has been updated:
+
+Event Details:
+- Event: <%= @event.title %>
+- Date: <%= @event.date.strftime('%B %d, %Y at %I:%M %p') %>
+- Venue: <%= @event.venue %>
+- Your Ticket: <%= @ticket.ticket_type %>
+- Quantity: <%= @booking.quantity %>
+
+Changes Made:
+<% @changes.each do |field, value| %>
+- <%= field.capitalize %>: <%= value[1] %> (was: <%= value[0] %>)
+<% end %>
+
+If you have any questions regarding these changes, please contact us.
+Thank you for your understanding!

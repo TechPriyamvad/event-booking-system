@@ -12,13 +12,12 @@ class BookingMailer < ApplicationMailer
         subject: "Booking Confirmation for #{@event.title}"
       )
       
-      # For assignment purposes, print to console instead of sending
-      puts "======================================"
-      puts "SENDING BOOKING CONFIRMATION EMAIL TO: #{@customer.email}"
-      puts "EVENT: #{@event.title}"
-      puts "TICKET TYPE: #{@ticket.ticket_type}"
-      puts "QUANTITY: #{@booking.quantity}"
-      puts "TOTAL PRICE: $#{@ticket.price * @booking.quantity}"
-      puts "======================================"
+      # Keep this for debugging if you want
+      Rails.logger.info "======================================"
+      Rails.logger.info "SENDING BOOKING CONFIRMATION EMAIL TO: #{@customer.email}"
+      Rails.logger.info "EVENT: #{@event.title}"
+      Rails.logger.info "TICKET TYPE: #{@ticket.ticket_type}"
+      Rails.logger.info "QUANTITY: #{@booking.quantity}"
+      Rails.logger.info "TOTAL PRICE: $#{@ticket.price * @booking.quantity}"
     end
-  end
+end

@@ -30,7 +30,27 @@ class EventsController < ApplicationController
   
     # PATCH/PUT /events/:id
     def update
+
+      # Store original attributes to track changes
+      original_attributes = @event.attributes.slice('title', 'description', 'date', 'venue')
+
       if @event.update(event_params)
+
+        # Check what has changed
+        changes = {}
+        original_attributes.each do |key, original_value|
+          new_value = @event[key]
+          if original_value != new_value
+            changes[key] = [original_value, new_value]
+          end
+        end
+        
+        # Only send notifications if there are actual changes
+        if changes.any?
+          # Enqueue the job to send notifications to customers
+          EventUpdateNotificationWorker.perform_async(@event.id, changes)
+        end
+
         render json: @event
       else
         render json: @event.errors, status: :unprocessable_entity

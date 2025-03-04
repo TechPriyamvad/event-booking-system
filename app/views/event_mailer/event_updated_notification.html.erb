@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+  <h1>Event Update Notification</h1>
+  <p>
+    Hello <%= @customer.name || @customer.email %>,
+  </p>
+  <p>
+    We're writing to inform you that an event you've booked tickets for has been updated:
+  </p>
+  
+  <h2>Event Details:</h2>
+  <ul>
+    <li><strong>Event:</strong> <%= @event.title %></li>
+    <li><strong>Date:</strong> <%= @event.date.strftime('%B %d, %Y at %I:%M %p') %></li>
+    <li><strong>Venue:</strong> <%= @event.venue %></li>
+    <li><strong>Your Ticket:</strong> <%= @ticket.ticket_type %></li>
+    <li><strong>Quantity:</strong> <%= @booking.quantity %></li>
+  </ul>
+  
+  <h2>Changes Made:</h2>
+  <ul>
+    <% @changes.each do |field, value| %>
+      <li><strong><%= field.capitalize %>:</strong> <%= value[1] %> (was: <%= value[0] %>)</li>
+    <% end %>
+  </ul>
+  
+  <p>If you have any questions regarding these changes, please contact us.</p>
+  <p>Thank you for your understanding!</p>
+</body>
+</html>
